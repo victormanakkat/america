@@ -5,6 +5,7 @@ import pygame, sys, os
 from pygame.locals import *
 from map import Map
 from character import Character
+from keyboard import Keyboard
 pygame.init()
 
 WINDOWWIDTH = 800
@@ -21,29 +22,27 @@ surface.fill(WHITE)
 
 layout = Map(surface)
 man = Character(surface)
+keyboard = Keyboard()
 x = 12
 y = 12
 direction = 'S'
+time = 0
+go = False
 while True:
     layout.drawMap()
     layout.sky()
-    man.blit(x,y,direction)
+    x, y, go = man.move(x,y,direction,time,go)
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
         if event.type == KEYDOWN:
-            if event.key == 273:
-                y -= 1
-                direction = 'N'
-            if event.key == 274:
-                y += 1
-                direction = 'S'
-            if event.key == 275:
-                x += 1
-                direction = 'W'
-            if event.key == 276:
-                x -= 1
-                direction = 'E'
+            go, direction = keyboard.player_input(event, go, direction)
     pygame.display.update()
     mainClock.tick()
+    
+    #Slow down movement
+    if time == 1:
+        time = 0
+    time += 1
+

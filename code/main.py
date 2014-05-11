@@ -26,7 +26,7 @@ keyboard = Keyboard()
 x = 12
 y = 12
 direction = 'S'
-time = 0
+time = [0,0]
 go = False
 while True:
     layout.drawMap()
@@ -42,7 +42,10 @@ while True:
     mainClock.tick()
     
     #Slow down movement
-    if time == 1:
-        time = 0
-    time += 1
+    if time[0] == 1:
+        time[0] = 0
+    time[0] += 1
+    if time[1] == 1:
+        time[1] = 0
+    time[1] += 1
 

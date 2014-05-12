@@ -6,6 +6,7 @@ from pygame.locals import *
 from map import Map
 from character import Character
 from keyboard import Keyboard
+from settings import Settings
 pygame.init()
 
 WINDOWWIDTH = 800
@@ -23,6 +24,8 @@ surface.fill(WHITE)
 layout = Map(surface)
 man = Character(surface)
 keyboard = Keyboard()
+settings = Settings(surface)
+
 x = 12
 y = 12
 direction = 'S'
@@ -32,7 +35,9 @@ while True:
     layout.drawMap()
     layout.sky()
     x, y, go = man.move(x,y,direction,time,go)
+    settings.settings_button()
     for event in pygame.event.get():
+        settings.settings_button(event)
         if event.type == QUIT:
             pygame.quit()
             sys.exit()

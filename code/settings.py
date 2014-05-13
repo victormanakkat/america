@@ -27,11 +27,25 @@ class Settings():
         self.exitRect.x = 2
 
         #Setup sound button
-        self.soundBlock = {'rect':pygame.Rect(-25, 583, 25, 25),'color':self.BLACK}
+        self.soundBlock = {'rect':pygame.Rect(-23, 583, 25, 25),'color':self.BLACK}
         self.soundImage = pygame.image.load('data\\images\\menus\\sound.png')
         self.soundRect = self.soundImage.get_rect()
         self.soundRect.y = 586
-        self.soundRect.x = -23
+        self.soundRect.x = -21
+
+        #Setup pause button
+        self.pauseBlock = {'rect':pygame.Rect(-25, 583, 25, 25),'color':self.BLACK}
+        self.pauseImage = pygame.image.load('data\\images\\menus\\pause.png')
+        self.pauseRect = self.pauseImage.get_rect()
+        self.pauseRect.y = 586
+        self.pauseRect.x = -23
+
+        #Setup help button
+        self.helpBlock = {'rect':pygame.Rect(-25, 583, 25, 25),'color':self.BLACK}
+        self.helpImage = pygame.image.load('data\\images\\menus\\help.png')
+        self.helpRect = self.helpImage.get_rect()
+        self.helpRect.y = 586
+        self.helpRect.x = -23
         
 
     def settings_button(self, event=None):
@@ -56,14 +70,27 @@ class Settings():
             #Blit sound stuff
             pygame.draw.rect(self.screen, self.soundBlock['color'], self.soundBlock['rect'])
             self.screen.blit(self.soundImage, self.soundRect)
-            
+            #Blit pause stuff
+            pygame.draw.rect(self.screen, self.pauseBlock['color'], self.pauseBlock['rect'])
+            self.screen.blit(self.pauseImage, self.pauseRect)
+            #Blit help stuff
+            pygame.draw.rect(self.screen, self.helpBlock['color'], self.helpBlock['rect'])
+            self.screen.blit(self.helpImage, self.helpRect)
+                       
             #Move blocks if needed
-            if self.soundBlock['rect'][0] != 25:
+            if self.soundBlock['rect'][0] != 75:
                 self.soundBlock['rect'][0] += 1
                 self.soundRect.x += 1
-            if self.exitBlock['rect'][0] != 50:
+            if self.exitBlock['rect'][0] != 100:
                 self.exitBlock['rect'][0] += 1
                 self.exitRect.x += 1
+            if self.pauseBlock['rect'][0] != 50:
+                self.pauseBlock['rect'][0] += 1
+                self.pauseRect.x += 1
+            if self.helpBlock['rect'][0] != 25:
+                self.helpBlock['rect'][0] += 1
+                self.helpRect.x += 1
+                
         else:
             #Blit exit stuff
             pygame.draw.rect(self.screen, self.exitBlock['color'], self.exitBlock['rect'])
@@ -71,6 +98,12 @@ class Settings():
             #Blit sound stuff
             pygame.draw.rect(self.screen, self.soundBlock['color'], self.soundBlock['rect'])
             self.screen.blit(self.soundImage, self.soundRect)
+            #Blit pause stuff
+            pygame.draw.rect(self.screen, self.pauseBlock['color'], self.pauseBlock['rect'])
+            self.screen.blit(self.pauseImage, self.pauseRect)
+            #Blit help stuff
+            pygame.draw.rect(self.screen, self.helpBlock['color'], self.helpBlock['rect'])
+            self.screen.blit(self.helpImage, self.helpRect)
 
             #Move blocks back
             if self.soundBlock['rect'][0] != -25:
@@ -79,6 +112,13 @@ class Settings():
             if self.exitBlock['rect'][0] != 0:
                 self.exitBlock['rect'][0] -= 1
                 self.exitRect.x -= 1
+            if self.pauseBlock['rect'][0] != -50:
+                self.pauseBlock['rect'][0] -= 1
+                self.pauseRect.x -= 1
+            if self.helpBlock['rect'][0] != -75:
+                self.helpBlock['rect'][0] -= 1
+                self.helpRect.x -= 1
+            
             
         
 

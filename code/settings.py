@@ -12,6 +12,11 @@ class Settings():
         self.screen = screen
         self.open = False
 
+        self.exit = False
+        self.sound = True
+        self.pause = False
+        self.help = False
+        
         #Setup settings button
         self.settingsBlock = {'rect':pygame.Rect(0, 583, 25, 25),'color':self.BLACK}
         self.gearImage = pygame.image.load('data\\images\\menus\\gear.png')
@@ -54,14 +59,20 @@ class Settings():
         self.screen.blit(self.gearImage, self.gearRect)
         
         if event != None:
+            self.exit_button(event)
+            self.sound_button(event)
+            self.pause_button(event)
+            self.help_button(event)
             if event.type == MOUSEMOTION:
-                if event.pos[0] < 50 and event.pos[1] > 583:
+                if event.pos[0] < 25 and event.pos[1] > 583:
                     self.settingsBlock['color'] = self.RED
                     self.open = True
                 else:
                     self.settingsBlock['color'] = self.BLACK
-                    self.open = False
-
+                    if event.pos[0] > 125 or event.pos[1] < 583:
+                        self.open = False
+        return self.exit, self.sound, self.pause, self.help
+    
     def open_bar(self, open):
         if open:
             #Blit exit stuff
@@ -117,22 +128,61 @@ class Settings():
                 self.pauseRect.x -= 1
             if self.helpBlock['rect'][0] != -75:
                 self.helpBlock['rect'][0] -= 1
-                self.helpRect.x -= 1
-            
-            
+                self.helpRect.x -= 1        
+
+    def sound_button(self, event):
+        if event != None:
+            if event.type == MOUSEMOTION:
+                if event.pos[0] < 100 and event.pos[0] > 75 and event.pos[1] > 583:
+                    self.soundBlock['color'] = self.RED
+                else:
+                    self.soundBlock['color'] = self.BLACK
+            if event.type == MOUSEBUTTONDOWN:
+                if event.pos[0] < 100 and event.pos[0] > 75 and event.pos[1] > 583:
+                    if self.sound:
+                        self.sound = False
+                    else:
+                        self.sound = True
+                else:
+                    self.soundBlock['color'] = self.BLACK
+
+    def exit_button(self, event):
+        if event != None:
+            if event.type == MOUSEMOTION:
+                if event.pos[0] < 125 and event.pos[0] > 100 and event.pos[1] > 583:
+                    self.exitBlock['color'] = self.RED
+                else:
+                    self.exitBlock['color'] = self.BLACK
+            if event.type == MOUSEBUTTONDOWN:
+                if event.pos[0] < 125 and event.pos[0] > 100 and event.pos[1] > 583:
+                    self.exit = True
+                else:
+                    self.exitBlock['color'] = self.BLACK
+
+    def pause_button(self, event):
+        if event != None:
+            if event.type == MOUSEMOTION:
+                if event.pos[0] < 75 and event.pos[0] > 50 and event.pos[1] > 583:
+                    self.pauseBlock['color'] = self.RED
+                else:
+                    self.pauseBlock['color'] = self.BLACK
+            if event.type == MOUSEBUTTONDOWN:
+                if event.pos[0] < 75 and event.pos[0] > 50 and event.pos[1] > 583:
+                    self.pause = True
+                else:
+                    self.pauseBlock['color'] = self.BLACK
+
+    def help_button(self, event):
+        if event != None:
+            if event.type == MOUSEMOTION:
+                if event.pos[0] < 50 and event.pos[0] > 25 and event.pos[1] > 583:
+                    self.helpBlock['color'] = self.RED
+                else:
+                    self.helpBlock['color'] = self.BLACK
+            if event.type == MOUSEBUTTONDOWN:
+                if event.pos[0] < 50 and event.pos[0] > 25 and event.pos[1] > 583:
+                    self.help = True
+                else:
+                    self.helpBlock['color'] = self.BLACK
         
 
-    def sound_button(self):
-        pass
-
-    def exit_button(self):
-        pass
-
-    def pause_button(self):
-        pass
-
-    def balloon(self):
-        pass
-
-    def add_bar(self):
-        pass

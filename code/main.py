@@ -35,7 +35,8 @@ while True:
     layout.drawMap()
     layout.sky()
     x, y, go = man.move(x,y,direction,time,go)
-    settings.settings_button()
+    end, sound, pause, help = settings.settings_button()
+
     for event in pygame.event.get():
         settings.settings_button(event)
         if event.type == QUIT:

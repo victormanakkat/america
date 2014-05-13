@@ -17,7 +17,11 @@ surface.fill(WHITE)
 
 class Map():
     def __init__(self, surface):
-        pass
+        self.screen = surface
+        self.BLACK = (0,0,0, 255)
+        self.num = 0
+        self.dim = pygame.Surface((800,608))        
+        self.dim.fill(self.BLACK)  
 
     def sky(self):
         block = {'rect':pygame.Rect(0, 0, 800, 130),'color':SKY_BLUE}
@@ -48,29 +52,9 @@ class Map():
             y += 1
             x = 0
 
-if __name__ == '__main__':
-    pygame.init()
-    
-    WINDOWWIDTH = 1184
-    WINDOWHIEGHT = 640
-    os.environ ['SDL_VIDEO_WINDOW_POS'] = 'center'
-    surface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHIEGHT), 0, 32)
-    pygame.display.set_caption('Test')
-    mainClock = pygame.time.Clock()
-
-    SKY_BLUE = (0, 255, 255)
-    WHITE = (255, 255, 255)
-
-    surface.fill(WHITE)
-    obj = Map(surface)
-    obj.drawMap()
-    obj.sky()
-    while True:
-        for event in pygame.event.get():
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-        pygame.display.update()
-        mainClock.tick()
-
-  
+    def blackout(self, time):
+        if time[2] == 1:
+            self.num += 1
+        self.dim.set_alpha(self.num)
+        self.screen.blit(self.dim, (0,0)) 
+        

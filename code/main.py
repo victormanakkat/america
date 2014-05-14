@@ -27,6 +27,7 @@ layout = Map(surface)
 man = Character(surface)
 keyboard = Keyboard()
 settings = Settings(surface)
+chat = Conversation(surface)
 
 x = 12
 y = 12
@@ -38,7 +39,7 @@ while True:
     layout.sky()
     x, y, go = man.move(x,y,direction,time,go)
     end, sound, pause, help = settings.settings_button()
-    layout.blackout(time)
+    chat.blit('hello, my name is tyler. How are you doing?',4)
 
     for event in pygame.event.get():
         settings.settings_button(event)

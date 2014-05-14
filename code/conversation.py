@@ -14,16 +14,31 @@ class Conversation():
         self.raw_ln2 = ''
         self.raw_ln3 = ''
         self.first = True
+        self.firstFirst = True
         
         self.lchat = pygame.image.load('data\\images\\menus\\lchat.png')
         self.rchat = pygame.image.load('data\\images\\menus\\rchat.png')
         self.rect = self.lchat.get_rect()
         self.rect.x = 400
         self.rect.x = 500
-        
-    def chat(self,speaker=None):
-        pass
 
+        self.loc = []
+        
+    def chat(self,time,conversation):
+        if time[2] == 100:
+            if len(conversation) != len(self.loc):
+                self.loc.append(4)
+            for i in range(0,len(self.loc)):
+                self.loc[i] -= 1            
+                
+        self.num = 0
+        for i in range(0,len(self.loc)):
+            if self.firstFirst:
+                self.first = True
+            self.blit(conversation[self.num],self.loc[i])
+            self.num += 1
+        self.firstFirst = False
+            
     def blit(self,text,loc,speaker=None):
         if self.first:
             for i in range(0, len(text)):
@@ -66,9 +81,11 @@ class Conversation():
             self.ln1r.y = 420
             self.ln2r.y = 438
             self.ln3r.y = 456
-            
+
+        #Blit red box
         if speaker == None:
             self.screen.blit(self.lchat, self.rect)
+        #Blit blue box
         else:
             self.screen.blit(self.rchat, self.rect)
         self.screen.blit(self.ln1, self.ln1r)

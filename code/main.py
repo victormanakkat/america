@@ -32,14 +32,14 @@ chat = Conversation(surface)
 x = 12
 y = 12
 direction = 'S'
-time = [0,0,0]
+time = [0,0,100]
 go = False
 while True:
     layout.drawMap()
     layout.sky()
     x, y, go = man.move(x,y,direction,time,go)
     end, sound, pause, help = settings.settings_button()
-    chat.blit('hello, my name is tyler. How are you doing?',4)
+    chat.chat(time,['hello. You are ugly!','Same to you.'])
 
     for event in pygame.event.get():
         settings.settings_button(event)
@@ -56,7 +56,7 @@ while True:
         time[0] = 0
     if time[1] == 1:
         time[1] = 0
-    if time[2] == 1:
+    if time[2] == 100:
         time[2] = 0
     time[0] += 1
     time[1] += 1

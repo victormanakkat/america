@@ -22,9 +22,12 @@ WHITE = (255, 255, 255)
 
 surface.fill(WHITE)
 
+coords = {'WilliamBradford':[10,10]}
+
 #Setup objects
 layout = Map(surface)
 man = Character(surface)
+WilliamBradford = Character(surface)
 keyboard = Keyboard()
 settings = Settings(surface)
 chat = Conversation(surface)
@@ -39,15 +42,13 @@ while True:
     layout.drawMap()
     layout.sky()
     x, y, go = man.move(x,y,direction,time,go)
+    WilliamBradford.move(coords['WilliamBradford'][0],coords['WilliamBradford'][1],'S',time,False,1)
+    WilliamBradford.check_for_chat(time, x, y, coords['WilliamBradford'][0], coords['WilliamBradford'][1])
     end, sound, pause, help = settings.settings_button()
-    chat.chat(time, [None,None,'',None,'',None],['hi',
-                     'get lost',
-                     'Well then if I get lost, how am I ever going to find my house?',
-                     'You will not.',
-                     'Then I will cry you!', 
-                     'Like I do not care! See ya!'])
+    
     for event in pygame.event.get():
         settings.settings_button(event)
+        WilliamBradford.check_for_chat(time, x, y, coords['WilliamBradford'][0], coords['WilliamBradford'][1], event)
         if event.type == QUIT:
             pygame.quit()
             sys.exit()

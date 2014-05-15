@@ -4,41 +4,24 @@
 import pygame, sys, os, time
 from pygame.locals import *
 
-class Conversation():
+class Blit():
     def __init__(self, screen):
         self.screen = screen
-        self.BLACK = (0,0,0)
-        self.WHITE = (255,255,255)
-        self.font = pygame.font.Font('data\\fonts\\font1.ttf', 10)
         self.raw_ln1 = ''
         self.raw_ln2 = ''
         self.raw_ln3 = ''
         self.first = True
-        self.firstFirst = True
-        
+
+        self.BLACK = (0,0,0)
+        self.WHITE = (255,255,255)
+        self.font = pygame.font.Font('data\\fonts\\font1.ttf', 10)
+
         self.lchat = pygame.image.load('data\\images\\menus\\lchat.png')
         self.rchat = pygame.image.load('data\\images\\menus\\rchat.png')
         self.rect = self.lchat.get_rect()
         self.rect.x = 400
         self.rect.x = 500
-
-        self.loc = []
         
-    def chat(self,time,conversation):
-        if time[2] == 100:
-            if len(conversation) != len(self.loc):
-                self.loc.append(4)
-            for i in range(0,len(self.loc)):
-                self.loc[i] -= 1            
-                
-        self.num = 0
-        for i in range(0,len(self.loc)):
-            if self.firstFirst:
-                self.first = True
-            self.blit(conversation[self.num],self.loc[i])
-            self.num += 1
-        self.firstFirst = False
-            
     def blit(self,text,loc,speaker=None):
         if self.first:
             for i in range(0, len(text)):
@@ -58,30 +41,40 @@ class Conversation():
         self.ln3r = self.ln3.get_rect()
 
         #Add text to right height
-        self.ln1r.x = 570
-        self.ln2r.x = 570
-        self.ln3r.x = 570
+        if speaker == None:
+            self.ln1r.x = 570
+            self.ln2r.x = 570
+            self.ln3r.x = 570
+        else:
+            self.ln1r.x = 515
+            self.ln2r.x = 515
+            self.ln3r.x = 515
+            
         if loc == 0:
             self.ln1r.y = 20
             self.ln2r.y = 38
             self.ln3r.y = 56
-        if loc == 1:
+        elif loc == 1:
             self.ln1r.y = 120
             self.ln2r.y = 138
             self.ln3r.y = 156
-        if loc == 2:
+        elif loc == 2:
             self.ln1r.y = 220
             self.ln2r.y = 238
             self.ln3r.y = 256
-        if loc == 3:
+        elif loc == 3:
             self.ln1r.y = 320
             self.ln2r.y = 338
             self.ln3r.y = 356
-        if loc == 4:
+        elif loc == 4:
             self.ln1r.y = 420
             self.ln2r.y = 438
             self.ln3r.y = 456
-
+        else:
+            self.ln1r.y = 1000
+            self.ln2r.y = 1000
+            self.ln3r.y = 1000
+            
         #Blit red box
         if speaker == None:
             self.screen.blit(self.lchat, self.rect)
@@ -91,3 +84,23 @@ class Conversation():
         self.screen.blit(self.ln1, self.ln1r)
         self.screen.blit(self.ln2, self.ln2r)
         self.screen.blit(self.ln3,self.ln3r)
+        
+class Conversation():
+    def __init__(self, screen):
+        self.screen = screen
+
+        self.loc = []
+        self.block = []
+        
+    def chat(self,time,speakers,conversation):
+        if time[2] == 200:
+            if len(conversation) != len(self.loc):
+                self.loc.append(4)
+                self.block.append(Blit(self.screen))
+            for i in range(0,len(self.loc)):
+                self.loc[i] -= 1
+                
+        self.num = 0
+        for i in self.block:
+            i.blit(conversation[self.num], self.loc[self.num],speakers[self.num])
+            self.num += 1

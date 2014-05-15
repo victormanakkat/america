@@ -7,7 +7,7 @@ from map import Map
 from character import Character
 from keyboard import Keyboard
 from settings import Settings
-from conversation import Conversation
+from conversation import *
 pygame.init()
 
 WINDOWWIDTH = 800
@@ -28,6 +28,7 @@ man = Character(surface)
 keyboard = Keyboard()
 settings = Settings(surface)
 chat = Conversation(surface)
+test = Blit(surface)
 
 x = 12
 y = 12
@@ -39,8 +40,12 @@ while True:
     layout.sky()
     x, y, go = man.move(x,y,direction,time,go)
     end, sound, pause, help = settings.settings_button()
-    chat.chat(time,['hello. You are ugly!','Same to you.'])
-
+    chat.chat(time, [None,None,'',None,'',None],['hi',
+                     'get lost',
+                     'Well then if I get lost, how am I ever going to find my house?',
+                     'You will not.',
+                     'Then I will cry you!', 
+                     'Like I do not care! See ya!'])
     for event in pygame.event.get():
         settings.settings_button(event)
         if event.type == QUIT:
@@ -56,7 +61,7 @@ while True:
         time[0] = 0
     if time[1] == 1:
         time[1] = 0
-    if time[2] == 100:
+    if time[2] == 200:
         time[2] = 0
     time[0] += 1
     time[1] += 1

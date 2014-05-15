@@ -7,12 +7,13 @@ from conversation import *
 
 class Character():
     def __init__(self, surface):
-        self.chat = Conversation(surface)
+        self.chat = [Conversation(surface)]
         self.surface = surface
         self.pixel = 0.03125
         self.step = 0
         self.slide = 0
         self.start = False
+        self.num = 0
         
         #North
         self.manF = pygame.image.load('data\\images\\sprites\\0\\0b.png')
@@ -99,8 +100,10 @@ class Character():
                 if event.type == KEYDOWN:
                     if event.key == 99:
                         self.start = True
+                        self.num += 1
+                        self.chat.append(Conversation(self.surface))
         if self.start:
-            self.chat.chat(time,['',None,'',None,None],['Hello. My Name is William   Bradford.',
+            self.chat[self.num].chat(time,['',None,'',None,None],['Hello. My Name is William   Bradford.',
                                                           'Hello. I am lost. Do you    know where I am?',
                                                           'You are in Holland.',
                                                         'Thank you.'])

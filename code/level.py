@@ -17,6 +17,17 @@ class Levels():
         self.coords = {'WilliamBradford':[10,10]}
         self.sound = True
 
+    def stay_on_screen(self,x,y):
+        if y < 4:
+            y = 4
+        if x < 0:
+            x = 0
+        if x > 24:
+            x = 24
+        if y > 18:
+            y = 18
+        return x,y
+    
     def Y1620(self,clock):
         #Setup objects
         self.layout = Map(self.surface)
@@ -25,8 +36,8 @@ class Levels():
         self.keyboard = Keyboard()
         self.settings = Settings(self.surface)
         self.chat = Conversation(self.surface)
-        self.x = 12
-        self.y = 12
+        self.x = 15
+        self.y = 15
         self.direction = 'S'
         self.time = [0,0,100]
         self.go = False
@@ -34,6 +45,7 @@ class Levels():
         pygame.mixer.music.load('data\\sound\\Godbless.mid')
         
         while True:
+            self.x, self.y = self.stay_on_screen(self.x,self.y)
             self.layout.blackout(self.time)
             self.layout.drawMap()
             self.layout.sky()

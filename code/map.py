@@ -53,8 +53,7 @@ class Map():
             x = 0
 
     def blackout(self, time):
-        if time[2] == 1:
-            self.num += 1
+        self.num += 100
         self.dim.set_alpha(self.num)
         self.screen.blit(self.dim, (0,0)) 
         

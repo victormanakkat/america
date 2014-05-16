@@ -1,4 +1,4 @@
-#Character
+#Main
 #By Tyler Spadgenske
 
 import pygame, sys, os
@@ -9,8 +9,11 @@ from keyboard import Keyboard
 from settings import Settings
 from conversation import *
 from mainmenu import MainMenu
+from level import *
+
 pygame.init()
 
+#Setup screen, clock, and colors
 WINDOWWIDTH = 800
 WINDOWHIEGHT = 608
 os.environ ['SDL_VIDEO_WINDOW_POS'] = 'center'
@@ -23,69 +26,24 @@ WHITE = (255, 255, 255)
 
 surface.fill(WHITE)
 
-coords = {'WilliamBradford':[10,10]}
 sound = True
-while True:
-    #Setup objects
-    layout = Map(surface)
-    man = Character(surface)
-    WilliamBradford = Character(surface)
-    keyboard = Keyboard()
-    settings = Settings(surface)
-    chat = Conversation(surface)
-    mainMenu = MainMenu(surface)
-    x = 12
-    y = 12
-    direction = 'S'
-    time = [0,0,100]
-    go = False
-    start = False
-    pygame.mixer.music.load('data\\sound\\Godbless.mid')
-    if sound:
-        pygame.mixer.music.play(-1, 0.0)
-    while True:
-        start = mainMenu.blit(start)
-        for event in pygame.event.get():
-            start = mainMenu.blit(start, event)
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-        pygame.display.update()
-        mainClock.tick()
-        if start:
-            break
-    while True:
-        layout.drawMap()
-        layout.sky()
-        x, y, go = man.move(x,y,direction,time,go)
-        WilliamBradford.move(coords['WilliamBradford'][0],coords['WilliamBradford'][1],'S',time,False,1)
-        WilliamBradford.check_for_chat(time, x, y, coords['WilliamBradford'][0], coords['WilliamBradford'][1])
-        end, sound, pause, help = settings.settings_button()
-    
-        for event in pygame.event.get():
-            settings.settings_button(event)
-            WilliamBradford.check_for_chat(time, x, y, coords['WilliamBradford'][0], coords['WilliamBradford'][1], event)
-            if event.type == QUIT:
-                pygame.quit()
-                sys.exit()
-            if event.type == KEYDOWN:
-                go, direction = keyboard.player_input(event, go, direction)
-        pygame.display.update()
-        mainClock.tick()
-    
-        #Slow down movement
-        if time[0] == 1:
-            time[0] = 0
-        if time[1] == 1:
-            time[1] = 0
-        if time[2] == 200:
-            time[2] = 0
-        time[0] += 1
-        time[1] += 1
-        time[2] += 1
-        if end:
-            break
-        if sound == False:
-             pygame.mixer.music.stop()
-    
 
+def main():
+    while True:
+        #Setup objects
+        mainMenu = MainMenu(surface)
+        game = Levels(surface)
+
+        #Load music and play it if sound is on
+        pygame.mixer.music.load('data\\sound\\Godbless.mid')
+        if sound:
+            pygame.mixer.music.play(-1, 0.0)
+
+        #Display main menu
+        mainMenu.menu(mainClock)
+        #Run level 1620
+        game.Y1620(mainClock)
+
+if __name__ == '__main__':
+    main()
+    

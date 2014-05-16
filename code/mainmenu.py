@@ -18,6 +18,7 @@ class MainMenu():
         self.rect.centerx = 400
         self.rect.centery = 300
         self.hover = False
+        self.start = False
 
     def start_button(self, event, start):
         if event != None:
@@ -41,3 +42,16 @@ class MainMenu():
         self.screen.blit(self.logo, self.logoRect)
         start = self.start_button(event, start)
         return start
+
+    def menu(self, clock):
+        while True:
+            self.start = self.blit(self.start)
+            for event in pygame.event.get():
+                self.start = self.blit(self.start, event)
+                if event.type == QUIT:
+                    pygame.quit()
+                    sys.exit()
+            pygame.display.update()
+            clock.tick()
+            if self.start:
+                break

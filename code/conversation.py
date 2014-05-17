@@ -108,10 +108,24 @@ class Conversation():
 
         self.loc = []
         self.block = []
+        self.IdontCare = True
+        self.conversation = []
         
-    def chat(self,time,speakers,conversation):
+    def chat(self,time,speakers,path,lnCount):
+        self.text = open(path, 'r')
+        #Read file and write it to list
+        if self.IdontCare:
+            for i in range(0, lnCount):
+                self.line = self.text.readline()
+                self.conversation.append(self.line)
+            #Remove newlines
+            for d in range(0, len(self.conversation)):
+                self.conversation[d] = self.conversation[d].rstrip()
+            self.IdontCare = False
+
+        #Blit boxes and text to screen with blit() function
         if time[2] == 200:
-            if len(conversation) != len(self.loc):
+            if len(self.conversation) != len(self.loc):
                 self.loc.append(4)
                 self.block.append(Blit(self.screen))
             for i in range(0,len(self.loc)):
@@ -119,5 +133,5 @@ class Conversation():
                 
         self.num = 0
         for i in self.block:
-            i.blit(conversation[self.num], self.loc[self.num],speakers[self.num])
+            i.blit(self.conversation[self.num], self.loc[self.num],speakers[self.num])
             self.num += 1

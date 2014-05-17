@@ -103,7 +103,6 @@ class Character():
                         self.num += 1
                         self.chat.append(Conversation(self.surface))
         if self.start:
-            self.chat[self.num].chat(time,['',None,'',None,None],['Hello. My Name is William   Bradford.',
-                                                          'Hello. I am lost. Do you    know where I am?',
-                                                          'You are in Holland.',
-                                                        'Thank you.'])
+            self.chat[self.num].chat(time,['',None,'',None,'',None,'',None,'',None,None],'data\\levels\\1620\\WilliamBradford.txt',10)
+                    
+                

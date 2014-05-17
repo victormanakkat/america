@@ -47,7 +47,7 @@ class Levels():
         self.quit = 0
         while True:
             if self.sun > 8:
-                self.quit = self.layout.blackout(time)
+                pass #self.quit = self.layout.blackout(time)
             if self.sun < 0:
                 self.layout.begin(time,'1620',self.sun)
             self.layout.sky(self.sun)
@@ -58,7 +58,7 @@ class Levels():
             self.WilliamBradford.check_for_chat(self.time, self.x, self.y, self.coords['WilliamBradford'][0], self.coords['WilliamBradford'][1])
             self.end, self.sound, self.pause, self.help = self.settings.settings_button()
             if self.sun > 8:
-                self.quit = self.layout.blackout(time)
+                pass #self.quit = self.layout.blackout(time)
             if self.sun < 0:
                 self.layout.begin(time, '1620',self.sun)
 

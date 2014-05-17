@@ -47,13 +47,15 @@ class Map():
 
         pygame.draw.circle(self.screen, self.YELLOW, self.coords, 40, 0)
         
-    def drawMap(self, mapPath='data\\levels\\test.txt'):
+    def drawMap(self, mapPath='data\\levels\\1620\\map.txt'):
         self.map = open(mapPath, 'r')
         
         #Load grass image
         self.grass = pygame.image.load('data\\images\\tiles\\0.png')
         #Load rock image
         self.rock = pygame.image.load('data\\images\\tiles\\1.png')
+        self.water = pygame.image.load('data\\images\\tiles\\2.jpg')
+        self.tree = pygame.image.load('data\\images\\tiles\\3.png')
         #Create rect
         self.rect = self.grass.get_rect()
 
@@ -68,6 +70,11 @@ class Map():
                     self.screen.blit(self.grass, self.rect)
                 if tile == '1':
                     self.screen.blit(self.rock, self.rect)
+                if tile == '2':
+                    self.screen.blit(self.water, self.rect)
+                if tile == '3':
+                    self.screen.blit(self.grass, self.rect)
+                    self.screen.blit(self.tree, self.rect)
                 x += 1
             y += 1
             x = 0

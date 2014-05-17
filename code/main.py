@@ -10,6 +10,7 @@ from settings import Settings
 from conversation import *
 from mainmenu import MainMenu
 from level import *
+from timeline import *
 
 pygame.init()
 
@@ -33,6 +34,7 @@ def main():
         #Setup objects
         mainMenu = MainMenu(surface)
         game = Levels(surface)
+        timeline = Timeline(surface, mainClock)
 
         #Load music and play it if sound is on
         pygame.mixer.music.load('data\\sound\\Godbless.mid')
@@ -41,6 +43,8 @@ def main():
 
         #Display main menu
         mainMenu.menu(mainClock)
+        #Select level
+        timeline.timeline()
         #Run level 1620
         game.Y1620(mainClock)
 

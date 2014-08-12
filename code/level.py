@@ -8,6 +8,7 @@ from character import Character
 from keyboard import Keyboard
 from settings import Settings
 from conversation import *
+from inventory import *
 
 pygame.init()
 
@@ -35,6 +36,7 @@ class Levels():
         self.WilliamBradford = Character(self.surface)
         self.keyboard = Keyboard()
         self.settings = Settings(self.surface)
+        self.inventory =  Inventory(self.surface)
         self.chat = Conversation(self.surface)
         self.x = 15
         self.y = 15
@@ -57,6 +59,7 @@ class Levels():
             self.WilliamBradford.move(self.coords['WilliamBradford'][0],self.coords['WilliamBradford'][1],'S',self.time,False,1)
             self.WilliamBradford.check_for_chat(self.time, self.x, self.y, self.coords['WilliamBradford'][0], self.coords['WilliamBradford'][1])
             self.end, self.sound, self.pause, self.help = self.settings.settings_button()
+            self.inventory.inventory_button()
             if self.sun > 8:
                 pass #self.quit = self.layout.blackout(time)
             if self.sun < 0:
@@ -67,6 +70,7 @@ class Levels():
                 
             for event in pygame.event.get():
                 self.settings.settings_button(event)
+                self.inventory.inventory_button(event)
                 self.WilliamBradford.check_for_chat(self.time, self.x, self.y, self.coords['WilliamBradford'][0], self.coords['WilliamBradford'][1], event)
                 if event.type == QUIT:
                     pygame.quit()

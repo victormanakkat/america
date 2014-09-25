@@ -68,7 +68,6 @@ class Levels():
                     y = y - 1
                 if self.coming == 'bottom':
                     y = y + 1
-                print self.coming
                 self.coming = ''
                 self.talk = True
                 self.cant_talk_box = Conversation(self.surface)

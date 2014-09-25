@@ -27,7 +27,7 @@ WHITE = (255, 255, 255)
 
 surface.fill(WHITE)
 
-sound = True
+sound = False
 
 def main():
     while True:
